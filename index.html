@@ -1,7 +1,185 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday, Florence!</title>
+  <style>
+    :root{
+      --bg:#1f1f1f; /* soft dark gray */
+      --accent:#ffffff;
+      --muted:rgba(255,255,255,0.85);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{
+      background:var(--bg);
+      color:var(--accent);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      line-height:1.4;
+    }
+
+    /* page layout */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:3rem 1.5rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero h1{
+      font-size:clamp(2.5rem, 6vw, 6rem);
+      margin:0 0 .5rem 0;
+      letter-spacing: -1px;
+      text-shadow:0 6px 30px rgba(0,0,0,0.6);
+    }
+    .hero p{
+      font-size:clamp(1rem,2.5vw,1.5rem);
+      margin:0;
+      color:var(--muted);
+    }
+
+    /* floating hearts */
+    .hearts{
+      position:absolute;inset:0;pointer-events:none;opacity:.18;
+    }
+    .heart{
+      position:absolute;width:120px;height:120px;transform:translate(-50%,-50%);
+      background:radial-gradient(circle at 40% 30%, rgba(255,255,255,0.12), transparent 40%), linear-gradient(135deg, rgba(255,0,102,0.06), rgba(255,50,120,0.02));
+      border-radius:30px;
+      filter:blur(10px);
+    }
+
+    /* content sections */
+    main{max-width:950px;margin:0 auto;padding:3rem 1rem 6rem}
+    section{margin:6rem 0;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+    section.alt{grid-template-columns:1fr 1fr;}
+    .text{padding:1rem}
+    .text h2{font-size:2rem;margin:0 0 .5rem}
+    .text p{color:var(--muted);margin:0}
+
+    /* image styles + reveal */
+    .media{
+      min-height:260px;background:linear-gradient(180deg,rgba(255,255,255,0.03),transparent);display:flex;align-items:center;justify-content:center;border-radius:12px;overflow:hidden;position:relative
+    }
+    .media img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.03);transition:transform .9s cubic-bezier(.2,.9,.3,1);}
+
+    /* reveal animation */
+    .reveal{opacity:0;transform:translateY(40px) scale(.997);transition:opacity 700ms ease, transform 700ms cubic-bezier(.2,.9,.3,1)}
+    .reveal.visible{opacity:1;transform:translateY(0) scale(1)}
+
+    /* single column on small screens */
+    @media (max-width:800px){section{grid-template-columns:1fr;}
+      .hero{padding:2rem 1rem}
+    }
+
+    /* footer */
+    footer{margin-top:4rem;text-align:center;color:rgba(255,255,255,0.6);font-size:.95rem}
+
+    /* small decorative underline */
+    .underline{height:6px;width:140px;margin:10px auto;background:linear-gradient(90deg,#fff4 0%, #fff2 50%, #fff0 100%);border-radius:6px}
+
+  </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <header class="hero">
+    <div>
+      <h1>Happy Birthday, Florence!</h1>
+      <p>To the one who fills my days with laughter and my heart with light — today is all about you ✨</p>
+      <div class="underline"></div>
+    </div>
+
+    <!-- soft decorative hearts (purely visual) -->
+    <div class="hearts" aria-hidden="true">
+      <div class="heart" style="left:10%;top:18%;width:140px;height:140px;border-radius:40px"></div>
+      <div class="heart" style="left:82%;top:26%;width:90px;height:90px;border-radius:30px"></div>
+      <div class="heart" style="left:60%;top:74%;width:200px;height:200px;border-radius:50px"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1 -->
+    <section>
+      <div class="media reveal">
+        <img src="https://via.placeholder.com/900x600.png?text=Your+Photo+Here+%F0%9F%8C%B8" alt="Placeholder image 1" loading="lazy">
+      </div>
+      <div class="text reveal">
+        <h2>Remember our first trip</h2>
+        <p>That day we walked for hours, laughed at silly cafes and got lost in the charming streets — I remember thinking "this is the start of something beautiful".</p>
+      </div>
+    </section>
+
+    <!-- Section 2 (alt order) -->
+    <section class="alt">
+      <div class="text reveal">
+        <h2>Your smile</h2>
+        <p>Sometimes a single smile from you turns any ordinary day into something special. Thank you for being you, always.</p>
+      </div>
+      <div class="media reveal">
+        <img src="https://via.placeholder.com/900x600.png?text=Another+Photo+%F0%9F%8C%B8" alt="Placeholder image 2" loading="lazy">
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section>
+      <div class="media reveal">
+        <img src="https://via.placeholder.com/900x600.png?text=Swap+this+image+later+%F0%9F%92%96" alt="Placeholder image 3" loading="lazy">
+      </div>
+      <div class="text reveal">
+        <h2>For all the little things</h2>
+        <p>From the tiny notes to the long conversations, your thoughtfulness never goes unnoticed. Today I celebrate all of that — and you.</p>
+      </div>
+    </section>
+
+    <!-- Section 4: big centered text -->
+    <section style="grid-template-columns:1fr; text-align:center">
+      <div class="text reveal">
+        <h2 style="font-size:2.4rem">I love you, Florence.</h2>
+        <p>May your day be filled with as much joy and warmth as you bring into my life every day.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Made with ❤️ — Replace the images and text however you like.</p>
+    </footer>
+  </main>
+
+  <script>
+    // Intersection Observer to reveal elements on scroll (images & text)
+    (function(){
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            // if you want one-time reveal, unobserve after visible:
+            observer.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.15});
+
+      document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+      // subtle parallax on hero mousemove (optional, non-intrusive)
+      const hero = document.querySelector('.hero');
+      hero.addEventListener('mousemove', (e)=>{
+        const x = (e.clientX / window.innerWidth - 0.5) * 12;
+        const y = (e.clientY / window.innerHeight - 0.5) * 12;
+        document.querySelectorAll('.heart').forEach((h,i)=>{
+          h.style.transform = `translate(calc(-50% + ${x*(i+1)/3}px), calc(-50% + ${y*(i+1)/3}px))`;
+        });
+      });
+
+      // Small accessibility improvement: reduce motion if user prefers reduced motion
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if(prefersReduced.matches){
+        document.querySelectorAll('.reveal').forEach(el=>{ el.style.transition='none'; el.classList.add('visible'); });
+      }
+    })();
+  </script>
 </body>
 </html>
