@@ -46,7 +46,6 @@
     /* Desktop version */
     .hero h1::before {
       content: attr(data-desktop);
-      white-space: pre-line;
     }
     .hero p{
       font-size:clamp(1rem,2.5vw,1.5rem);
@@ -117,6 +116,7 @@
       /* Mobile version of title */
       .hero h1::before {
         content: attr(data-mobile);
+        white-space: pre-line;
       }
     }
 
