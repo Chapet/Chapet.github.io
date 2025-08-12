@@ -73,16 +73,40 @@
     .reveal{opacity:0;transform:translateY(40px) scale(.997);transition:opacity 700ms ease, transform 700ms cubic-bezier(.2,.9,.3,1)}
     .reveal.visible{opacity:1;transform:translateY(0) scale(1)}
 
-    /* single column on small screens */
-    @media (max-width:800px){section{grid-template-columns:1fr;}
-      .hero{padding:2rem 1rem}
+    /* small decorative underline */
+    .underline{height:6px;width:140px;margin:10px auto;background:linear-gradient(90deg,#fff4 0%, #fff2 50%, #fff0 100%);border-radius:6px}
+
+    /* MOBILE: single column layout with full-width images */
+    @media (max-width:800px){
+      section{
+        grid-template-columns:1fr;
+        gap:1.5rem;
+        margin:4rem 0;
+      }
+      
+      /* Reset alt sections to use same order as regular sections on mobile */
+      section.alt{
+        grid-template-columns:1fr;
+      }
+      
+      /* On mobile, always put image first, then text */
+      section .media{
+        order: 1;
+      }
+      
+      section .text{
+        order: 2;
+        text-align: center;
+        padding: 1rem 0;
+      }
+      
+      .hero{
+        padding:2rem 1rem;
+      }
     }
 
     /* footer */
     footer{margin-top:4rem;text-align:center;color:rgba(255,255,255,0.6);font-size:.95rem}
-
-    /* small decorative underline */
-    .underline{height:6px;width:140px;margin:10px auto;background:linear-gradient(90deg,#fff4 0%, #fff2 50%, #fff0 100%);border-radius:6px}
 
   </style>
 </head>
