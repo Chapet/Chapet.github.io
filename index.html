@@ -43,10 +43,7 @@
       word-break: keep-all;
     }
     
-    /* Desktop version */
-    .hero h1::before {
-      content: attr(data-desktop);
-    }
+    
     .hero p{
       font-size:clamp(1rem,2.5vw,1.5rem);
       margin:0;
@@ -116,7 +113,6 @@
       /* Mobile version of title */
       .hero h1::before {
         content: attr(data-mobile);
-        white-space: pre-line;
       }
     }
 
@@ -128,7 +124,13 @@
 <body>
   <header class="hero">
     <div>
-      <h1 data-mobile="❤️ ❤️ ❤️ ❤️ ❤️\A Joyeux\A Anniversaire\A Flo\A ❤️ ❤️ ❤️ ❤️ ❤️" data-desktop="❤️ Joyeux Anniversaire Flo ❤️"></h1>
+      <h1>
+      ❤️ ❤️ ❤️ ❤️ ❤️<br>
+      Joyeux<br>
+      Anniversaire<br>
+      Flo<br>
+      ❤️ ❤️ ❤️ ❤️ ❤️
+    </h1>
       <p>À celle qui occupe mes pensées, et qui remplit mon coeur chaque fois que mon regard la croise</p>
       <div class="underline"></div>
     </div>
