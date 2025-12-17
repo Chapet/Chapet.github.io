@@ -1,7 +1,186 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Creative Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .nav-link.active {
+            background-color: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .loader {
+            border-top-color: #3b82f6;
+            animation: spinner 0.6s linear infinite;
+        }
+
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden bg-white border-b border-slate-200 p-4 sticky top-0 z-50 flex justify-between items-center">
+        <h1 class="font-bold text-xl tracking-tight text-blue-600">Portfolio.</h1>
+        <button id="mobileMenuBtn" class="p-2 text-slate-600 focus:outline-none">
+            <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+    </header>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <nav id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 lg:static lg:block w-64 bg-white border-r border-slate-200 transition-transform duration-300 ease-in-out z-40">
+            <div class="p-8">
+                <h1 class="hidden lg:block font-bold text-2xl mb-8 tracking-tight text-blue-600">Portfolio.</h1>
+                
+                <div class="space-y-1">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-3">General</p>
+                    <button onclick="showTab('home', 'about.html')" id="nav-home" class="nav-link w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-50 transition-all active">
+                        <i class="fa-solid fa-user mr-3 w-5"></i>
+                        About Me
+                    </button>
+                </div>
+
+                <div class="mt-10 space-y-1">
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4 px-3">Projects</p>
+                    <button onclick="showTab('project1', 'project1.html')" id="nav-project1" class="nav-link w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-50 transition-all">
+                        <i class="fa-solid fa-code mr-3 w-5"></i>
+                        Project One
+                    </button>
+                    <button onclick="showTab('project2', 'project2.html')" id="nav-project2" class="nav-link w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-50 transition-all">
+                        <i class="fa-solid fa-layer-group mr-3 w-5"></i>
+                        Project Two
+                    </button>
+                    <button onclick="showTab('project3', 'project3.html')" id="nav-project3" class="nav-link w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-50 transition-all">
+                        <i class="fa-solid fa-rocket mr-3 w-5"></i>
+                        Project Three
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 w-full max-h-screen overflow-y-auto bg-slate-50">
+            <div id="content-container" class="max-w-4xl mx-auto p-6 lg:p-12">
+                <!-- Content will be injected here via AJAX -->
+                <div id="loading-state" class="hidden flex flex-col items-center justify-center py-20">
+                    <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+                    <p class="text-slate-500 animate-pulse">Loading content...</p>
+                </div>
+                <div id="dynamic-content"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Overlay for mobile -->
+    <div id="overlay" class="fixed inset-0 bg-black/20 z-30 hidden lg:hidden transition-opacity"></div>
+
+    <script>
+        /**
+         * Fetches and displays content from an external HTML file
+         * @param {string} tabId - The ID for navigation highlighting
+         * @param {string} url - The external HTML file to fetch
+         */
+        async function showTab(tabId, url) {
+            // Update UI: Nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            const activeNav = document.getElementById('nav-' + tabId);
+            if (activeNav) activeNav.classList.add('active');
+
+            // Show loading state
+            const dynamicContent = document.getElementById('dynamic-content');
+            const loader = document.getElementById('loading-state');
+            
+            dynamicContent.style.opacity = '0.5';
+            loader.classList.remove('hidden');
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('File not found');
+                
+                const html = await response.text();
+                
+                // Inject the content
+                dynamicContent.innerHTML = html;
+                dynamicContent.style.opacity = '1';
+            } catch (error) {
+                dynamicContent.innerHTML = `
+                    <div class="bg-red-50 border border-red-200 text-red-600 p-6 rounded-xl">
+                        <h2 class="text-xl font-bold mb-2">Error Loading Section</h2>
+                        <p>Could not load <strong>${url}</strong>. Please ensure the file exists in the same directory.</p>
+                    </div>
+                `;
+                console.error('Fetch error:', error);
+            } finally {
+                loader.classList.add('hidden');
+                closeMobileMenu();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+        function toggleMobileMenu() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function closeMobileMenu() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Load default tab on start
+        window.onload = () => {
+            showTab('home', 'about.html');
+        };
+    </script>
 </body>
 </html>
