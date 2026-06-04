@@ -3,6 +3,9 @@
   "target": {
     "namespace": "android_app",
     "package_name": "com.music.athleon",
-    "sha256_cert_fingerprints": ["27:9D:48:E5:DB:D3:83:D3:4B:41:FF:BB:B4:FD:D2:11:44:E9:AC:90:1C:73:DF:26:7A:F4:24:9F:3B:03:9E:8D"]
+    "sha256_cert_fingerprints": [
+      "27:9D:48:E5:DB:D3:83:D3:4B:41:FF:BB:B4:FD:D2:11:44:E9:AC:90:1C:73:DF:26:7A:F4:24:9F:3B:03:9E:8D",
+      "E9:87:F9:95:6D:15:AF:FF:86:08:BD:E1:F5:1E:00:92:43:61:7D:57:3A:F0:CE:2C:27:FE:7C:E8:9C:C6:57:19"
+    ]
   }
 }]
